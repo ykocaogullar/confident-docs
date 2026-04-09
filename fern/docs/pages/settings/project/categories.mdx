@@ -4,11 +4,7 @@ slug: settings/project/categories
 description: Learn about trace and thread categories
 ---
 
-Categories let you automatically classify incoming traces and threads into user-defined groups. This helps surface patterns, segment data by use case or topic, and organize your observability data.
-
-<Frame caption="Configure Categories">
-  <img data-image="settings.project.categories" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
-</Frame>
+Categories let you automatically classify incoming traces and threads into user-defined groups. Instead of manually tagging data, you define the categories you care about and Confident AI handles the rest. This helps you surface patterns, segment data by use case or topic, and keep your observability data organized.
 
 The categories page has two tabs: **Trace Categories** and **Thread Categories**.
 
@@ -18,7 +14,7 @@ Trace categories classify individual traces as they are ingested. A trace is cat
 
 ### Sample Rate
 
-The **Sample Rate** controls the probability that an incoming trace will be categorized. Set a value between `0.0` and `1.0` (e.g. `0.5` means 50% of traces will be categorized). This lets you control the overhead of categorization on high-volume projects.
+The **Sample Rate** controls the probability that an incoming trace will be categorized. Set a value between `0.0` and `1.0` (e.g. `0.5` means 50% of traces will be categorized). This is useful for controlling overhead on high-volume projects.
 
 ### Create a Trace Category
 
@@ -38,7 +34,9 @@ The **Sample Rate** controls the probability that an idle thread will be categor
 
 ### Time Limit
 
-The **Time Limit** (in seconds) defines how long a thread must be idle before it becomes eligible for categorization. When a new trace arrives after this idle period, the thread is categorized. For example, a time limit of `300` means a thread must be inactive for 5 minutes before it is categorized.
+The **Time Limit** (in seconds) defines how long a thread must be idle before it becomes eligible for categorization. When a new trace arrives after this idle period, the thread is categorized.
+
+For example, a time limit of `300` means a thread must be inactive for 5 minutes before it gets categorized.
 
 ### Create a Thread Category
 
@@ -50,10 +48,10 @@ The **Time Limit** (in seconds) defines how long a thread must be idle before it
 
 ## Manage Categories
 
-Each category in the list has a toggle to **enable or disable** it without deleting it. Disabled categories are not applied to incoming data.
+Each category in the list has a toggle to **enable or disable** it without deleting it. Disabled categories are not applied to incoming data, so you can turn them off temporarily without losing your configuration.
 
 Use the three-dot menu on any category to **Edit** or **Delete** it.
 
-<Note>
+<Warning>
   Categories is a premium feature. You must be on the Premium plan or above to use auto-categorization.
-</Note>
+</Warning>

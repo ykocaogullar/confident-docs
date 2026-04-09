@@ -4,11 +4,7 @@ slug: settings/project/transformers
 description: Learn about data transformers
 ---
 
-Transformers are Python functions that preprocess and reshape data before it runs through evaluation pipelines. They let you extract the exact fields needed for evaluation, even from nested or non-standard response structures from your AI application.
-
-<Frame caption="Manage Transformers">
-  <img data-image="settings.project.transformers" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
-</Frame>
+Your AI app doesn't always return clean, flat outputs. Transformers are Python functions that let you extract the exact fields you need for evaluation, even from nested or non-standard response structures. They preprocess and reshape data before it runs through your evaluation pipelines, so you don't have to worry about response format inconsistencies.
 
 ## Create a Transformer
 
@@ -17,7 +13,7 @@ To create a new transformer:
 1. Navigate to **Project Settings** > **Transformers**
 2. Click **New Transformer**
 3. Enter a unique **Name** for the transformer
-4. Optionally add a **Description** to help you remember what the transformer does
+4. Optionally add a **Description** to help you remember what it does
 5. Write your Python function in the code editor
 6. Click **Save**
 
@@ -31,11 +27,13 @@ def transformer(data: Any):
     return data
 ```
 
-The `from typing import Any` import and the `def transformer(data: Any):` function signature are fixed and cannot be modified.
+<Note>
+  The `from typing import Any` import and the `def transformer(data: Any):` function signature are fixed and cannot be modified.
+</Note>
 
 ## Test a Transformer
 
-The built-in debugger lets you verify your transformer before saving:
+No more guessing whether your transformer works correctly. The built-in debugger lets you verify your logic before saving:
 
 1. Enter mock input data in the **Input** panel (Python syntax, e.g. `{"key": "value"}`)
 2. Click **Test** to execute the transformer against the input
@@ -43,7 +41,7 @@ The built-in debugger lets you verify your transformer before saving:
 
 Test data is persisted locally so you can iterate without re-entering it each time.
 
-## Use Transformers in AI Connections
+## AI Connection Integration
 
 Transformers are used in [AI Connections](/docs/settings/project/ai-connections) as an alternative to JSON key paths for extracting data from AI app responses. You can assign a transformer for each of the following fields:
 
