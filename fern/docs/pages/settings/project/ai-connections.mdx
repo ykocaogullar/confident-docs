@@ -365,6 +365,46 @@ Set the maximum number of times Confident AI will retry a failed request to your
 - **Minimum**: 0
 - **Default**: 0
 
+### Response Mode
+
+Choose how Confident AI should interpret your endpoint's response. The default is **HTTP Response**, which expects a single JSON response body. For streaming endpoints, choose one of the streaming modes.
+
+| Mode | Description | Content-Type |
+| --- | --- | --- |
+| HTTP Response | Standard request-response. Your endpoint returns a single JSON body. | `application/json` |
+| SSE Streaming | Server-Sent Events. Each event is prefixed with `data:` and the stream ends with `data: [DONE]`. | `text/event-stream` |
+| HTTP Streaming | NDJSON (Newline-Delimited JSON). Each line of the response body must be a valid JSON object, separated by newlines. | `application/x-ndjson` or `application/json` |
+
+#### HTTP Streaming (NDJSON)
+
+When using HTTP Streaming, your endpoint must return responses in [NDJSON format](https://github.com/ndjson/ndjson-spec) -- one JSON object per line, separated by newline characters (`\n`).
+
+Example response body:
+
+```
+{"chunk": "Hello"}
+{"chunk": " world"}
+{"chunk": "!"}
+```
+
+Each line is parsed independently as JSON. Empty lines are ignored. If any non-empty line is not valid JSON, the request will fail with an error indicating which line could not be parsed.
+
+<Note>
+  Raw text streaming (sending plain text chunks without JSON wrapping) is **not supported** in HTTP Streaming mode. If your endpoint streams plain text, either wrap each chunk in a JSON object or use a different response mode.
+</Note>
+
+#### SSE Streaming
+
+When using SSE Streaming, your endpoint should follow the [Server-Sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) standard. Each event should be prefixed with `data:` and contain a JSON object. Signal the end of the stream with `data: [DONE]`.
+
+Example response body:
+
+```
+data: {"chunk": "Hello"}
+data: {"chunk": " world"}
+data: [DONE]
+```
+
 ## Configure Multiturn State
 
 During multi-turn simulations, Confident AI calls your endpoint once per turn. You can use state to persist information—like a thread ID or session—across turns so your AI app can maintain context throughout the conversation.
